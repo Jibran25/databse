@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="utf8mb4" collation="utf8mb4_general_ci">blog_management_system</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="posts" view="standard">
+<left>528</left>
+<top>385</top>
+<width>245</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `posts` (
+  `post_id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_by_user_id` int(11) DEFAULT NULL,
+  `post_title` varchar(200) DEFAULT NULL,
+  `post_description` longtext DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT 1,
+  PRIMARY KEY (`post_id`),
+  KEY `post_by_user_id` (`post_by_user_id`),
+  CONSTRAINT `posts_ibfk_1` FOREIGN KEY (`post_by_user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="roles" view="standard">
+<left>44</left>
+<top>39</top>
+<width>198</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `roles` (
+  `role_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_type` varchar(50) DEFAULT NULL,
+  `is_active` tinyint(1) DEFAULT 1,
+  PRIMARY KEY (`role_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+<table name="users" view="standard">
+<left>266</left>
+<top>214</top>
+<width>237</width>
+<height>197</height>
+<sql_create_table>CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `role_id` int(11) DEFAULT NULL,
+  `full_name` varchar(200) DEFAULT NULL,
+  `user_email` varchar(100) DEFAULT NULL,
+  `user_password` varchar(200) DEFAULT NULL,
+  `gender` varchar(15) DEFAULT 'Male',
+  `is_active` tinyint(1) DEFAULT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_email` (`user_email`),
+  KEY `role_id` (`role_id`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
